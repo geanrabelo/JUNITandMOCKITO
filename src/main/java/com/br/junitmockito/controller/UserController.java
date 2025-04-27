@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/v1/user")
 public class UserController {
 
     private final UserService userService;
@@ -18,7 +18,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping
+    @GetMapping("/id")
     public ResponseEntity<User> findById(@RequestParam(name = "id") Long id){
         return ResponseEntity.ok().body(userService.findById(id));
     }
