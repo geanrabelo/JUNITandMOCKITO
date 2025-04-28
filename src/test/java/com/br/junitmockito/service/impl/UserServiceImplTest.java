@@ -41,6 +41,7 @@ class UserServiceImplTest {
     private static final String NAME = "Gean";
     private static final String EMAIL = "gean@gmail.com";
     private static final String PASSWORD = "123";
+    private static final String MESSAGEUSERNOTFOUND = "User find by id not found";
 
     @BeforeEach
     void setUp() {
@@ -69,13 +70,13 @@ class UserServiceImplTest {
 
     @Test
     void whenFindByIdThenReturnUserNotFoundHandler(){
-        Mockito.when(userRepository.findById(ID)).thenThrow(new UserNotFound("User find by id not found"));
+        Mockito.when(userRepository.findById(ID)).thenThrow(new UserNotFound(MESSAGEUSERNOTFOUND));
 
         try{
             userServiceImpl.findById(ID);
         }catch (Exception ex){
             Assertions.assertEquals(UserNotFound.class, ex.getClass());
-            Assertions.assertEquals("User find by id not found", ex.getMessage());
+            Assertions.assertEquals(MESSAGEUSERNOTFOUND, ex.getMessage());
         }
     }
 
