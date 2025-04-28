@@ -1,6 +1,7 @@
 package com.br.junitmockito.controller;
 
 import com.br.junitmockito.domain.User;
+import com.br.junitmockito.dto.UserDetailsDTO;
 import com.br.junitmockito.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +20,7 @@ public class UserController {
     }
 
     @GetMapping("/id")
-    public ResponseEntity<User> findById(@RequestParam(name = "id") Long id){
+    public ResponseEntity<UserDetailsDTO> findById(@RequestParam(name = "id") Long id){
         return ResponseEntity.ok().body(userService.findById(id));
     }
 }

@@ -1,6 +1,8 @@
 package com.br.junitmockito.service.impl;
 
 import com.br.junitmockito.domain.User;
+import com.br.junitmockito.dto.UserDetailsDTO;
+import com.br.junitmockito.exceptions.ex.UserNotFound;
 import com.br.junitmockito.repository.UserRepository;
 import com.br.junitmockito.service.UserService;
 import org.springframework.stereotype.Service;
@@ -15,8 +17,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findById(Long id) {
-        return userRepository.findById(id).orElse(null);
+    public UserDetailsDTO findById(Long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFound("User find by id not found"));
+        return new UserDetailsDTO(user);
     }
 
     @Override
