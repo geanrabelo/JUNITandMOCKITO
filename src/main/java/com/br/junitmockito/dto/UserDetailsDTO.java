@@ -4,9 +4,8 @@ import com.br.junitmockito.domain.User;
 
 public record UserDetailsDTO(Long id,
                              String name,
-                             String email,
-                             String password) {
+                             String email) {
     public UserDetailsDTO(User user){
-        this(user.getId(), user.getName(), user.getEmail(), user.getPassword());
+        this(user.getId(), user.getName(), user.getEmail());
     }
 }

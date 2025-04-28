@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/v1/user")
 public class UserController {
@@ -22,5 +24,10 @@ public class UserController {
     @GetMapping("/id")
     public ResponseEntity<UserDetailsDTO> findById(@RequestParam(name = "id") Long id){
         return ResponseEntity.ok().body(userService.findById(id));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<UserDetailsDTO>> findAll(){
+        return ResponseEntity.ok(userService.findAll());
     }
 }
