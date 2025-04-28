@@ -3,6 +3,7 @@ package com.br.junitmockito.service.impl;
 import com.br.junitmockito.domain.User;
 import com.br.junitmockito.dto.UserDetailsDTO;
 import com.br.junitmockito.dto.UserUpdateDTO;
+import com.br.junitmockito.exceptions.ex.UserNotFound;
 import com.br.junitmockito.repository.UserRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -64,6 +65,18 @@ class UserServiceImplTest {
         Assertions.assertEquals(EMAIL, response.email());
         Assertions.assertEquals(ID, response.id());
         Assertions.assertEquals(NAME, response.name());
+    }
+
+    @Test
+    void whenFindByIdThenReturnUserNotFoundHandler(){
+        Mockito.when(userRepository.findById(ID)).thenThrow(new UserNotFound("User find by id not found"));
+
+        try{
+            userServiceImpl.findById(ID);
+        }catch (Exception ex){
+            Assertions.assertEquals(UserNotFound.class, ex.getClass());
+            Assertions.assertEquals("User find by id not found", ex.getMessage());
+        }
     }
 
     @Test
