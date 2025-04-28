@@ -1,6 +1,7 @@
 package com.br.junitmockito.exceptions;
 
 import com.br.junitmockito.exceptions.dto.ErrorResponse;
+import com.br.junitmockito.exceptions.ex.UserEmailAlreadyExists;
 import com.br.junitmockito.exceptions.ex.UserNotFound;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -14,6 +15,12 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse userNotFoundHandler(UserNotFound userNotFound){
         return ErrorResponse.notFound(userNotFound.getMessage());
+    }
+
+    @ExceptionHandler(UserEmailAlreadyExists.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorResponse userEmailAlreadyExistsHandler(UserEmailAlreadyExists userEmailAlreadyExists){
+        return ErrorResponse.conflict(userEmailAlreadyExists.getMessage());
     }
 
 }

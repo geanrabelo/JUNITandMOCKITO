@@ -1,10 +1,7 @@
 package com.br.junitmockito.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity(name = "tb_user")
 @Table(name = "tb_user")
@@ -12,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
+@Builder
 public class User {
 
     @Id
@@ -20,6 +18,7 @@ public class User {
 
     private String name;
 
+    @Column(name = "email", unique = true)
     private String email;
 
     private String password;
