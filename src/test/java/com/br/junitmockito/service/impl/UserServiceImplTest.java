@@ -146,9 +146,14 @@ class UserServiceImplTest {
         Mockito.when(userRepository.existsById(Mockito.any())).thenThrow(new UserNotFound(MESSAGE_USER_NOT_FOUND));
 
         try {
+
             userServiceImpl.deleteById(ID);
-        }catch (Exception ex){
+
+        } catch (Exception ex){
+
             Assertions.assertEquals(UserNotFound.class, ex.getClass());
+            Assertions.assertEquals(MESSAGE_USER_NOT_FOUND, ex.getMessage());
+
         }
     }
 
