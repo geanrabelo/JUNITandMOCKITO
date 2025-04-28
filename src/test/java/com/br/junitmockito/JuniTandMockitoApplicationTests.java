@@ -7,7 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 class JuniTandMockitoApplicationTests {
 
 	@Test
-	void contextLoads() {
+	void main() {
+		JuniTandMockitoApplication.main(new String[] {});
 	}
 
 }

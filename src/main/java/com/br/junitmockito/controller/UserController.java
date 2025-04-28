@@ -4,6 +4,7 @@ import com.br.junitmockito.domain.User;
 import com.br.junitmockito.dto.MessageDTO;
 import com.br.junitmockito.dto.UserCreateDTO;
 import com.br.junitmockito.dto.UserDetailsDTO;
+import com.br.junitmockito.dto.UserUpdateDTO;
 import com.br.junitmockito.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,13 @@ public class UserController {
         return ResponseEntity.created(uri).body(new MessageDTO("User registered successfully"));
     }
 
+    @PutMapping
+    @Transactional
+    public ResponseEntity<UserDetailsDTO> update(@RequestBody @Valid UserUpdateDTO userUpdateDTO){
+        User user = userService.update(userUpdateDTO);
+        return ResponseEntity.ok(new UserDetailsDTO(user));
+    }
+
     @GetMapping("/id")
     public ResponseEntity<UserDetailsDTO> findById(@RequestParam(name = "id") Long id){
         return ResponseEntity.ok().body(userService.findById(id));
@@ -40,5 +48,12 @@ public class UserController {
     @GetMapping
     public ResponseEntity<List<UserDetailsDTO>> findAll(){
         return ResponseEntity.ok(userService.findAll());
+    }
+
+    @DeleteMapping
+    @Transactional
+    public ResponseEntity<Void> deleteById(@RequestParam(name = "id") Long id){
+        userService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }
